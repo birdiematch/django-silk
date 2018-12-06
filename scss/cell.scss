@@ -1,33 +1,103 @@
-.cell {
-  display: inline-block;
-  background-color: transparent;
-  padding: 10px;
-  margin-left: 10px;
-  margin-top: 10px;
-  border-radius: 4px;
-  transition: background-color 0.15s ease, color 0.15s ease;
-  div {
-    margin: 2px;
-  }
-  .timestamp-div {
-    margin-bottom: 15px;
-    font-size: 13px;
-  }
-  .meta {
-    font-size: 12px;
-    color: #be5b43;
-    .unit {
-      font-size: 9px;
-      font-weight: lighter !important;
-    }
+.requests-canvas {
+  //display: flex;
+  //flex-wrap: wrap;
+  //justify-content: space-around;
+  //align-items: flex-start;
+  padding: 20px;
+}
 
-  }
-  .method-div {
-    font-weight: bold;
-    font-size: 20px;
-  }
-  .path-div {
-    font-size: 18px;
-    margin-bottom: 15px;
+.cell-canvas {
+  display: block;
+  margin-bottom: 10px;
+  padding: 5px 5px 20px;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 14px;
+
+  &:hover {
+    background-color: #b5dede;
   }
 }
+
+.cell {
+  .request-metrics {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    > * {
+      flex-basis: 25%
+    }
+  }
+
+  .request-path {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .request-time {
+    color: #777777;
+    font-size: 12px;
+  }
+
+  .numeric {
+    font-size: 14px;
+  }
+
+  .time-overall,
+  .time-queries,
+  .amount-queries {
+    padding-right: 20px;
+  }
+}
+
+//.cell {
+//  display: block;
+//  background-color: transparent;
+//  padding: 10px;
+//  margin-left: 10px;
+//  margin-top: 10px;
+//  border-radius: 4px;
+//  transition: background-color 0.15s ease, color 0.15s ease;
+//
+//  &:hover {
+//    background-color: rgb(51, 51, 68);
+//    color: white;
+//    cursor: pointer;
+//  }
+//
+//  > div {
+//    //margin: 2px;
+//    text-overflow: ellipsis;
+//    overflow: hidden;
+//  }
+//
+//  .timestamp-div {
+//    font-size: 13px;
+//  }
+//
+//  .meta {
+//    font-size: 12px;
+//    color: #be5b43;
+//
+//    .unit {
+//      font-size: 9px;
+//      font-weight: lighter !important;
+//    }
+//
+//  }
+//
+//  .numeric {
+//    font-size: 14px;
+//  }
+//
+//  .request-method {
+//
+//  }
+//
+//  .request-path {
+//    text-overflow: ellipsis;
+//    overflow: hidden;
+//    white-space: nowrap;
+//  }
+//}

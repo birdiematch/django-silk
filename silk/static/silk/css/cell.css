@@ -1,25 +1,35 @@
-.cell {
-  display: inline-block;
-  background-color: transparent;
-  padding: 10px;
-  margin-left: 10px;
-  margin-top: 10px;
-  border-radius: 4px;
-  transition: background-color 0.15s ease, color 0.15s ease; }
-  .cell div {
-    margin: 2px; }
-  .cell .timestamp-div {
-    margin-bottom: 15px;
-    font-size: 13px; }
-  .cell .meta {
-    font-size: 12px;
-    color: #be5b43; }
-    .cell .meta .unit {
-      font-size: 9px;
-      font-weight: lighter !important; }
-  .cell .method-div {
-    font-weight: bold;
-    font-size: 20px; }
-  .cell .path-div {
-    font-size: 18px;
-    margin-bottom: 15px; }
+.requests-canvas {
+  padding: 20px; }
+
+.cell-canvas {
+  display: block;
+  margin-bottom: 10px;
+  padding: 5px 5px 20px;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 14px; }
+  .cell-canvas:hover {
+    background-color: #b5dede; }
+
+.cell .request-metrics {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start; }
+  .cell .request-metrics > * {
+    flex-basis: 25%; }
+
+.cell .request-path {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap; }
+
+.cell .request-time {
+  color: #777777;
+  font-size: 12px; }
+
+.cell .numeric {
+  font-size: 14px; }
+
+.cell .time-overall,
+.cell .time-queries,
+.cell .amount-queries {
+  padding-right: 20px; }
