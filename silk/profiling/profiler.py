@@ -3,6 +3,7 @@ import logging
 import time
 import traceback
 
+import django
 from django.conf import settings
 from django.utils import timezone
 
@@ -124,9 +125,18 @@ class silk_profile(object):
 
     def _silk_installed(self):
         app_installed = 'silk' in settings.INSTALLED_APPS
-        middlewares = getattr(settings, 'MIDDLEWARE', [])
-        if not middlewares:
+
+        # Returns the first part of VERSION tuple. Ex: tuple would be (2, 0, 0, 'final', 0)
+        major_django_version = django.VERSION[0]
+
+        if major_django_version == 1:
+            middlewares = getattr(settings, "MIDDLEWARE_CLASSES", [])
+        elif major_django_version == 2:
+            middlewares = getattr(settings, 'MIDDLEWARE', [])
+        else:
+            Logger.warning(f"Unknown Django version {django.get_version()}. Things can get messy.")
             middlewares = []
+
         middleware_installed = 'silk.middleware.SilkyMiddleware' in middlewares
         return app_installed and middleware_installed
 
