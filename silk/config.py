@@ -12,6 +12,10 @@ def default_permissions(user):
     return False
 
 
+def default_requst_model_edit(silk_request_model, request_object):
+    return silk_request_model
+
+
 class SilkyConfig(six.with_metaclass(Singleton, object)):
     defaults = {
         'SILKY_DYNAMIC_PROFILING': [],
@@ -33,7 +37,8 @@ class SilkyConfig(six.with_metaclass(Singleton, object)):
 
         # BM enhancements
         'SILKY_DATABASE_NAME': 'default',
-        'SILKY_LOGIN_URL': None
+        'SILKY_LOGIN_URL': None,
+        'SILKY_EDIT_REQUEST_MODEL_FUNCTION': default_requst_model_edit
     }
 
     def _setup(self):

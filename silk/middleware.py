@@ -58,6 +58,8 @@ class TestMiddleware(object):
 
 
 class SilkyMiddleware(MiddlewareMixin):
+    edit_request_model_function = SilkyConfig().SILKY_EDIT_REQUEST_MODEL_FUNCTION
+
     def _apply_dynamic_mappings(self):
         dynamic_profile_configs = config.SILKY_DYNAMIC_PROFILING
         for conf in dynamic_profile_configs:
@@ -103,7 +105,9 @@ class SilkyMiddleware(MiddlewareMixin):
             collector = DataCollector()
             collector.stop_python_profiler()
             silk_request = collector.request
+
             if silk_request:
+                silk_request = self.edit_request_model_function(silk_request, request)
                 silk_response = ResponseModelFactory(response).construct_response_model()
                 silk_response.save()
                 silk_request.end_time = timezone.now()
