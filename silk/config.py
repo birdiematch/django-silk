@@ -30,7 +30,10 @@ class SilkyConfig(six.with_metaclass(Singleton, object)):
         'SILKY_INTERCEPT_FUNC': None,
         'SILKY_PYTHON_PROFILER': False,
         'SILKY_STORAGE_CLASS': 'silk.storage.ProfilerResultStorage',
-        'SILKY_DATABASE_NAME': 'default'
+
+        # BM enhancements
+        'SILKY_DATABASE_NAME': 'default',
+        'SILKY_LOGIN_URL': None
     }
 
     def _setup(self):
@@ -45,6 +48,10 @@ class SilkyConfig(six.with_metaclass(Singleton, object)):
             self._check_database_routers(settings.DATABASE_ROUTERS)
 
     def _check_database_routers(self, routers):
+        """
+        Checks the given list of router module paths for occurance of SilkDBRouter.
+        Raises ImproperlyConfigured, if not present.
+        """
         silk_router_present = False
 
         for r in routers:
@@ -52,7 +59,7 @@ class SilkyConfig(six.with_metaclass(Singleton, object)):
                 silk_router_present = True
 
         if not silk_router_present:
-            raise ImproperlyConfigured("When using setting 'SILKY_DATABASE_NAME', also add 'silk.routers.SilkDBRouter' to your 'DATABASE_ROUTERS'.")
+            raise ImproperlyConfigured("When using 'SILKY_DATABASE_NAME', also add 'silk.routers.SilkDBRouter' to your 'DATABASE_ROUTERS'.")
 
     def __init__(self):
         super(SilkyConfig, self).__init__()
