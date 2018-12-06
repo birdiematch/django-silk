@@ -72,6 +72,8 @@ class Request(models.Model):
     meta_time_spent_queries = FloatField(null=True, blank=True)
     pyprofile = TextField(blank=True, default='')
     prof_file = FileField(max_length=300, blank=True, storage=silk_storage)
+    # Customizable informations about the user involved on the request. See "SILKY_EDIT_REQUEST_MODEL_FUNCTION"
+    user = TextField(null=True, default=None)
 
     @property
     def total_meta_time(self):
@@ -146,7 +148,7 @@ class Request(models.Model):
             cls.objects.all().delete()
             return
         requests = cls.objects.order_by('-start_time')
-        if not requests or len(requests)-1 < target_count:
+        if not requests or len(requests) - 1 < target_count:
             return
         time_cutoff = requests[target_count].start_time
         cls.objects.filter(start_time__lte=time_cutoff).delete()
