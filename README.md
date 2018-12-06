@@ -377,6 +377,24 @@ You can also use a `lambda`.
 SILKY_PERMISSIONS = lambda user: user.is_superuser
 ```
 
+To specify the redirect URL if access to Silk was not granted, set `SILKY_LOGIN_URL`:
+
+```python
+SILKY_LOGIN_URL = "https://example.com/login/"
+```
+
+### Manipulating Requests
+Silk creates a model in `SilkyMiddleware` for every request. You can customize this request model by providing
+a function with `SILKY_EDIT_REQUEST_MODEL_FUNCTION`. This function needs the exact same signature and has to return
+the given `silk_request_model` instance:
+
+```python
+def customize_request(self, silk_request_model, request_object):
+    silk_request_model.user = request_object.user
+    return silk_request_model
+
+```
+ 
 ### Request/Response bodies
 
 By default, Silk will save down the request and response bodies for each request for future viewing
