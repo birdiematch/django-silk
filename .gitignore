@@ -58,6 +58,7 @@ dist
 /django_silky/media
 *.prof
 project/media/*
+venv/
 
 # Vagrant
 .vagrant
