@@ -174,7 +174,7 @@
             <h2>Most Time Overall</h2>
             {% if longest_queries_by_view %}
                 {% for x in longest_queries_by_view %}
-                    <a href="{% url "silk:request_detail" request_id=x.pk %}">
+                    <a class="cell-canvas" href="{% url "silk:request_detail" request_id=x.pk %}">
                         {% request_summary x %}
                     </a>
                 {% endfor %}
@@ -184,7 +184,7 @@
             <h2>Most Time Spent in Database</h2>
             {% if most_time_spent_in_db %}
                 {% for x in most_time_spent_in_db %}
-                    <a href="{% url "silk:request_detail" request_id=x.pk %}">
+                    <a class="cell-canvas" href="{% url "silk:request_detail" request_id=x.pk %}">
                         {% request_summary x %}
                     </a>
                 {% endfor %}
@@ -194,7 +194,7 @@
             <h2>Most Database Queries</h2>
             {% if most_queries %}
                 {% for x in most_queries %}
-                    <a href="{% url "silk:request_detail" request_id=x.pk %}">
+                    <a class="cell-canvas" href="{% url "silk:request_detail" request_id=x.pk %}">
                         {% request_summary x %}
                     </a>
                 {% endfor %}

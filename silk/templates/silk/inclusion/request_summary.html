@@ -16,7 +16,7 @@
     </div>
 
     <div class="request-metrics">
-        <span class="time-overall time-taken-div">
+        <div class="time-overall time-taken-div">
             <span class="numeric">
                 {{ silk_request.time_taken|floatformat:"0" }} <span class="unit">ms</span>
             </span>
@@ -28,9 +28,9 @@
                     {% endif %}
                 </span>
             </span>
-        </span>
+        </div>
 
-        <span class="time-queries time-taken-queries-div">
+        <div class="time-queries time-taken-queries-div">
             <span class="numeric">
                 {{ silk_request.time_spent_on_sql_queries|floatformat:"0" }} <span class="unit">ms</span>
             </span>
@@ -43,9 +43,9 @@
                     {% endif %}
                 </span>
             </span>
-        </span>
+        </div>
 
-        <span class="amount-queries num-queries-div">
+        <div class="amount-queries num-queries-div">
             <span class="numeric">
                 {{ silk_request.num_sql_queries }}
             </span>
@@ -57,15 +57,23 @@
                     {% endif %}
                 </span>
             </span>
-        </span>
+        </div>
 
-        <span class="request-user">
-            {% if silk_request.user %}
-                {{ silk_request.user }}
-            {% else %}
-                No user
+        <div class="request-user">
+            <div>
+                {% if silk_request.user %}
+                    {{ silk_request.user }}
+                {% else %}
+                    No user
+                {% endif %}
+            </div>
+            {% if silk_request.platform %}
+                {{ silk_request.platform }}
             {% endif %}
-        </span>
+            <div>
+
+            </div>
+        </div>
     </div>
 </div>
 

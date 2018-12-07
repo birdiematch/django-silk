@@ -176,11 +176,46 @@ class RequestModelFactory(object):
 
         return resolved.view_name
 
+    def _get_platform_details(self):
+        """
+        Returns a string with platform information based on HTTP header 'user-agent'
+        """
+        user_agent_string = self.request.META.get("HTTP_USER_AGENT")
+        if not user_agent_string:
+            return None
+
+        try:
+            from user_agents import parse as parse_user_agent
+        except ImportError:
+            Logger.warning("Could not import 'user_agents'. Make sure the pip package 'user_agents' is installed.")
+            return user_agent_string
+
+        user_agent = parse_user_agent(user_agent_string)
+        if user_agent.browser.family == "Other":
+            browser = "Other"
+        else:
+            browser = f"{user_agent.browser.family} {user_agent.browser.version_string}"
+
+        device = user_agent.device
+        os = user_agent.os
+        if os.family == "Other":
+            platform = "Other / "
+        else:
+            platform = f"{os.family} {os.version_string} / "
+
+        platform += f"{device.brand or ''} {device.family or ''} {device.model or ''}"
+
+        return f"{browser} {platform}"
+
     def construct_request_model(self):
         body, raw_body = self.body()
         query_params = self.query_params()
         path = self.request.path
         view_name = self.view_name()
+        platform = None
+
+        if SilkyConfig().SILKY_LOG_USER_AGENT:
+            platform = self._get_platform_details()
 
         request_model = models.Request.objects.create(
             path=path,
@@ -188,7 +223,9 @@ class RequestModelFactory(object):
             method=self.request.method,
             query_params=query_params,
             view_name=view_name,
-            body=body)
+            body=body,
+            platform=platform)
+
         # Text fields are encoded as UTF-8 in Django and hence will try to coerce
         # anything to we pass to UTF-8. Some stuff like binary will fail.
         try:

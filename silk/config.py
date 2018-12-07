@@ -38,7 +38,8 @@ class SilkyConfig(six.with_metaclass(Singleton, object)):
         # BM enhancements
         'SILKY_DATABASE_NAME': 'default',
         'SILKY_LOGIN_URL': None,
-        'SILKY_EDIT_REQUEST_MODEL_FUNCTION': default_requst_model_edit
+        'SILKY_EDIT_REQUEST_MODEL_FUNCTION': default_requst_model_edit,
+        'SILKY_LOG_USER_AGENT': False
     }
 
     def _setup(self):

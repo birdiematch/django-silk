@@ -74,6 +74,8 @@ class Request(models.Model):
     prof_file = FileField(max_length=300, blank=True, storage=silk_storage)
     # Customizable informations about the user involved on the request. See "SILKY_EDIT_REQUEST_MODEL_FUNCTION"
     user = TextField(null=True, default=None)
+    # Stores informations about the user's client platform. (Ex: Windows 10, Google-Chrome 70)
+    platform = TextField(null=True, default=None)
 
     @property
     def total_meta_time(self):
