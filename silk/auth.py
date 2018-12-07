@@ -8,9 +8,13 @@ from silk.config import SilkyConfig
 
 
 def login_possibly_required(function=None, **kwargs):
-    if SilkyConfig().SILKY_AUTHENTICATION:
-        return login_required(function, **kwargs)
-    return function
+    if not SilkyConfig().SILKY_AUTHENTICATION:
+        return function
+
+    if kwargs.get("login_url") is None:
+        kwargs["login_url"] = SilkyConfig().SILKY_LOGIN_URL
+
+    return login_required(function, **kwargs)
 
 
 def permissions_possibly_required(function=None):

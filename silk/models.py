@@ -72,6 +72,10 @@ class Request(models.Model):
     meta_time_spent_queries = FloatField(null=True, blank=True)
     pyprofile = TextField(blank=True, default='')
     prof_file = FileField(max_length=300, blank=True, storage=silk_storage)
+    # Customizable informations about the user involved on the request. See "SILKY_EDIT_REQUEST_MODEL_FUNCTION"
+    user = TextField(null=True, default=None)
+    # Stores informations about the user's client platform. (Ex: Windows 10, Google-Chrome 70)
+    platform = TextField(null=True, default=None)
 
     # Useful method to create shortened copies of strings without losing start and end context
     # Used to ensure path and view_name don't exceed 190 characters
@@ -151,7 +155,7 @@ class Request(models.Model):
             cls.objects.all().delete()
             return
         requests = cls.objects.order_by('-start_time')
-        if not requests or len(requests)-1 < target_count:
+        if not requests or len(requests) - 1 < target_count:
             return
         time_cutoff = requests[target_count].start_time
         cls.objects.filter(start_time__lte=time_cutoff).delete()

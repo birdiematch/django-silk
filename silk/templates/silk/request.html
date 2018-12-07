@@ -82,6 +82,10 @@
 
         }
 
+        .headers .value.user {
+            color: #3e8f3e;
+        }
+
 
     </style>
 {% endblock %}
@@ -115,6 +119,10 @@
                         <td class="value">{{ v }}</td>
                     </tr>
                 {% endfor %}
+                <tr>
+                    <td class="key">User</td>
+                    <td class="value user">{{ silk_request.user }}</td>
+                </tr>
             </table>
             {% if silk_request.raw_body %}
                 {% heading 'Raw Request Body' %}

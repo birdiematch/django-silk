@@ -1,17 +1,144 @@
 {% load silk_filters %}
 <div class="cell">
-    <div class="timestamp-div">{{ silk_request.start_time | silk_date_time }}</div>
-    <div class="method-div">{% if silk_request.response.status_code %}{{ silk_request.response.status_code }} {% endif %}{{ silk_request.method }}</div>
-    <div class="path-div">{{ silk_request.path }}</div>
-    <div class="time-taken-div">
-        <span class="numeric">{{ silk_request.time_taken|floatformat:"0" }}<span class="unit">ms</span></span>
-        <span class="appendage">overall<span class="meta">{% if silk_request.total_meta_time %} +{{ silk_request.total_meta_time | floatformat:"0" }}<span class="unit">ms</span>{% endif %}</span></span>
+
+    <div>
+        <span class="request-time">
+            {{ silk_request.start_time | silk_date_time }}
+        </span>
+
+        <span class="request-path">
+            {% if silk_request.response.status_code %}
+                {{ silk_request.response.status_code }}
+            {% endif %}
+            {{ silk_request.method }}
+            {{ silk_request.path }}
+        </span>
     </div>
-    <div class="time-taken-queries-div">
-        <span class="numeric">{{ silk_request.time_spent_on_sql_queries|floatformat:"0" }}<span class="unit">ms</span></span>
-        <span class="appenage">on queries<span class="meta">{% if silk_request.meta_time_spent_queries %} +{{ silk_request.meta_time_spent_queries | floatformat:"0" }}<span class="unit">ms</span>{% endif %}</span></div>
-    <div class="num-queries-div">
-        <span class="numeric">{{ silk_request.num_sql_queries }}</span>
-        <span class="appendage">queries<span class="meta">{% if silk_request.meta_num_queries %} +{{ silk_request.meta_num_queries  }}{% endif %}</span>
+
+    <div class="request-metrics">
+        <div class="time-overall time-taken-div">
+            <span class="numeric">
+                {{ silk_request.time_taken|floatformat:"0" }} <span class="unit">ms</span>
+            </span>
+            <span class="appendage">
+                overall
+                <span class="meta numeric">
+                    {% if silk_request.total_meta_time %}
+                        +{{ silk_request.total_meta_time | floatformat:"0" }} <span class="unit">ms</span>
+                    {% endif %}
+                </span>
+            </span>
+        </div>
+
+        <div class="time-queries time-taken-queries-div">
+            <span class="numeric">
+                {{ silk_request.time_spent_on_sql_queries|floatformat:"0" }} <span class="unit">ms</span>
+            </span>
+            <span class="appenage">
+                on queries
+                <span class="meta numeric">
+                    {% if silk_request.meta_time_spent_queries %}
+                        +{{ silk_request.meta_time_spent_queries | floatformat:"0" }}
+                        <span class="unit">ms</span>
+                    {% endif %}
+                </span>
+            </span>
+        </div>
+
+        <div class="amount-queries num-queries-div">
+            <span class="numeric">
+                {{ silk_request.num_sql_queries }}
+            </span>
+            <span class="appendage">
+                queries
+                <span class="meta numeric">
+                    {% if silk_request.meta_num_queries %}
+                        +{{ silk_request.meta_num_queries }}
+                    {% endif %}
+                </span>
+            </span>
+        </div>
+
+        <div class="request-user">
+            <div>
+                {% if silk_request.user %}
+                    {{ silk_request.user }}
+                {% else %}
+                    No user
+                {% endif %}
+            </div>
+            {% if silk_request.platform %}
+                {{ silk_request.platform }}
+            {% endif %}
+            <div>
+
+            </div>
+        </div>
     </div>
 </div>
+
+{#<div class="cell">#}
+{##}
+{#    <div class="timestamp-div">{{ silk_request.start_time | silk_date_time }}</div>#}
+{##}
+{#    <div class="request-meta">#}
+{#        <span class="request-method">#}
+{#            {% if silk_request.response.status_code %}#}
+{#                {{ silk_request.response.status_code }}#}
+{#            {% endif %}#}
+{#            {{ silk_request.method }}#}
+{#        </span>#}
+{#        <span class="request-path">#}
+{#            {{ silk_request.path }}#}
+{#        </span>#}
+{#    </div>#}
+{#    <div class="method-div">{% if silk_request.response.status_code %}{{ silk_request.response.status_code }} {% endif %}{{ silk_request.method }}</div>#}
+{#    <div class="path-div">{{ silk_request.path }}</div>#}
+{##}
+{#    <div class="time-taken-div">#}
+{#        <span class="numeric">#}
+{#            {{ silk_request.time_taken|floatformat:"0" }} <span class="unit">ms</span>#}
+{#        </span>#}
+{#        <span class="appendage">#}
+{#            overall#}
+{#            <span class="meta">#}
+{#                {% if silk_request.total_meta_time %}#}
+{#                    +{{ silk_request.total_meta_time | floatformat:"0" }} <span class="unit">ms</span>#}
+{#                {% endif %}#}
+{#            </span>#}
+{#        </span>#}
+{#    </div>#}
+{#    <div class="time-taken-queries-div">#}
+{#        <span class="numeric">#}
+{#            {{ silk_request.time_spent_on_sql_queries|floatformat:"0" }}#}
+{#            <span class="unit">ms</span>#}
+{#        </span>#}
+{##}
+{#        <span class="appenage">#}
+{#            on queries#}
+{#            <span class="meta">#}
+{#                {% if silk_request.meta_time_spent_queries %}#}
+{#                    + {{ silk_request.meta_time_spent_queries | floatformat:"0" }} <span class="unit">ms</span>#}
+{#                {% endif %}#}
+{#            </span>#}
+{#        </span>#}
+{#    </div>#}
+{##}
+{#    <div class="num-queries-div">#}
+{#        <span class="numeric">#}
+{#            {{ silk_request.num_sql_queries }}#}
+{#        </span>#}
+{#        <span class="appendage">#}
+{#            queries#}
+{#            <span class="meta">#}
+{#                {% if silk_request.meta_num_queries %}#}
+{#                    + {{ silk_request.meta_num_queries }}#}
+{#                {% endif %}#}
+{#            </span>#}
+{#    </div>#}
+{#    {% if silk_request.user %}#}
+{#        <div class="request-user">#}
+{#            {{ silk_request.user }}#}
+{#        </div>#}
+{#    {% endif %}#}
+{#</div>#}

@@ -1,7 +1,7 @@
 {
   "name": "silk",
   "version": "3.0.1",
-  "description": "https://github.com/jazzband/django-silk",
+  "description": "https://github.com/birdiematch/django-silk",
   "main": "index.js",
   "directories": {
     "doc": "docs",
@@ -12,20 +12,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jazzband/django-silk.git"
+    "url": "https://github.com/birdiematch/django-silk.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jazzband/django-silk/issues"
+    "url": "https://github.com/birdiematch/django-silk/issues"
   },
-  "homepage": "https://github.com/jazzband/django-silk",
+  "homepage": "https://github.com/birdiematch/django-silk",
   "devDependencies": {
     "async": "^1.2.0",
     "babel-core": "^5.5.3",
     "babel-loader": "^5.1.4",
     "gulp": "^3.8.10",
+    "gulp-load-plugins": "^1.5.0",
     "gulp-rename": "^1.2.2",
+    "gulp-sass": "^4.0.2",
     "gulp-scss": "^1.1.1",
     "gulp-shell": "^0.4.2",
     "gulp-util": "^3.0.5",
