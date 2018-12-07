@@ -1,8 +1,4 @@
 .requests-canvas {
-  //display: flex;
-  //flex-wrap: wrap;
-  //justify-content: space-around;
-  //align-items: flex-start;
   padding: 20px;
 }
 
@@ -25,7 +21,11 @@
     align-items: flex-start;
 
     > * {
-      flex-basis: 25%
+      flex-grow: 1;
+    }
+
+    > .request-user {
+      flex-grow: 2;
     }
   }
 
